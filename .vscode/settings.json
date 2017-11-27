@@ -1,0 +1,13 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.rulers": [80],
+  "markdownlint.config": {
+    "line_length": false,
+    "no-inline-html": false,
+    "ul-style": {
+      "style": "consistent"
+    }
+  }
+}
