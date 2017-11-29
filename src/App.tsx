@@ -6,6 +6,8 @@ import './App.css';
 import { theme } from './theme';
 const logo = require('./logo.svg');
 
+import { MyComp } from './components';
+
 class App extends React.Component {
   render() {
     return (
@@ -19,6 +21,7 @@ class App extends React.Component {
           <p className="App-intro">
             To get started, edit <code>src/App.tsx</code> and save to reload.
           </p>
+          <MyComp />
         </div>
       </MuiThemeProvider>
     );
