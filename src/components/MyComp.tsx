@@ -38,7 +38,7 @@ class MyComp extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: State) => {
   const stateProps: StateProps = {
-    items: state
+    items: state.items
   };
   return stateProps;
 };

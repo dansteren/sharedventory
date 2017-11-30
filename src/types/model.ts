@@ -43,4 +43,11 @@ export interface Item {
 //   items: Item[];
 // }
 
-export type State = Item[];
+interface AuthState {
+  isAuthenticated: boolean;
+}
+
+export type State = {
+  items: Item[];
+  auth: AuthState;
+};

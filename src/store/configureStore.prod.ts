@@ -1,5 +1,8 @@
-import { createStore } from 'redux';
-import { rootReducer } from '../reducers';
+import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { History } from 'history';
+
+import * as reducers from '../reducers';
 
 /**
  * Configure store takes care of all store related setup. This can include:
@@ -7,8 +10,11 @@ import { rootReducer } from '../reducers';
  *   - Adding middleware
  *   - Adding redux devtools
  */
-const configureStore = () => {
-  const store = createStore(rootReducer);
+const configureStore = (history: History) => {
+  const store = createStore(
+    combineReducers({ ...reducers, routerReducer }),
+    applyMiddleware(routerMiddleware(history))
+  );
   return store;
 };
 
