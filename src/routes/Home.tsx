@@ -5,11 +5,13 @@ import { push } from 'react-router-redux';
 
 import { signOut } from '../actions';
 
+interface StateProps {}
+
 interface DispatchProps {
   logout: () => void;
 }
 
-type Props = {} & DispatchProps & RouteComponentProps<void>;
+type Props = StateProps & DispatchProps & RouteComponentProps<void>;
 
 class Home extends React.Component<Props, {}> {
   componentWillMount() {

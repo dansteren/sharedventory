@@ -6,10 +6,10 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route, Switch } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import App from './App';
+import { Inventory, Login, NotFound } from './routes';
 import configureStore from './store/configureStore';
 import registerServiceWorker from './registerServiceWorker';
-import { Login, PrivateRoute, NotFound } from './components';
+import { PrivateRoute } from './components';
 import { theme } from './theme';
 
 import './index.css';
@@ -23,7 +23,7 @@ ReactDOM.render(
       <ConnectedRouter history={history}>
         <Switch>
           <Route path="/login" component={Login} />
-          <PrivateRoute exact path="/" component={App} />
+          <PrivateRoute exact path="/" component={Inventory} />
           <Route component={NotFound} />
         </Switch>
       </ConnectedRouter>

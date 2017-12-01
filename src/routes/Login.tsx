@@ -11,11 +11,15 @@ const boxes = require('../assets/boxes.svg');
 
 import { signIn } from '../actions';
 
-interface LoginProps extends RouteComponentProps<void> {
+interface StateProps {}
+
+interface DispatchProps {
   login: () => void;
 }
 
-class Login extends React.Component<LoginProps, {}> {
+type Props = StateProps & DispatchProps & RouteComponentProps<void>;
+
+class Login extends React.Component<Props, {}> {
   render() {
     return (
       <div

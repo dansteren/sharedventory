@@ -10,9 +10,8 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Avatar from 'material-ui/Avatar';
 
-import { State } from './reducers';
-import { openDrawer, closeDrawer } from './actions';
-import './App.css';
+import { State } from '../reducers';
+import { openDrawer, closeDrawer } from '../actions';
 
 interface StateProps {
   drawerOpen: boolean;
@@ -25,12 +24,12 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps & RouteComponentProps<void>;
 
-class App extends React.Component<Props, {}> {
+class Inventory extends React.Component<Props, {}> {
   handleClose = () => this.props.closeDrawer();
 
   render() {
     return (
-      <div className="App">
+      <div>
         <Drawer
           docked={false}
           onRequestChange={open =>
@@ -119,4 +118,4 @@ const mapDispatchToProps = (dispatch: Dispatch<State>) => {
   return dispatchProps;
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Inventory);

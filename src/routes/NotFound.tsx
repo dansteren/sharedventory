@@ -10,11 +10,11 @@ const boxes = require('../assets/boxes.svg');
 
 interface StateProps {}
 
-interface DispatchProps extends RouteComponentProps<void> {
+interface DispatchProps {
   redirect: () => void;
 }
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & RouteComponentProps<void>;
 
 class NotFound extends React.Component<Props, {}> {
   render() {
