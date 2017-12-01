@@ -9,7 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import App from './App';
 import configureStore from './store/configureStore';
 import registerServiceWorker from './registerServiceWorker';
-import { Login, PrivateRoute } from './components';
+import { Login, PrivateRoute, NotFound } from './components';
 import { theme } from './theme';
 
 import './index.css';
@@ -24,6 +24,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/login" component={Login} />
           <PrivateRoute exact path="/" component={App} />
+          <Route component={NotFound} />
         </Switch>
       </ConnectedRouter>
     </MuiThemeProvider>

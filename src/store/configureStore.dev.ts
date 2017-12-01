@@ -13,7 +13,7 @@ import * as reducers from '../reducers';
  */
 const configureStore = (history: History) => {
   return createStore(
-    combineReducers({ ...reducers, routerReducer }),
+    combineReducers<reducers.State>({ ...reducers, routerReducer }),
     composeWithDevTools(applyMiddleware(routerMiddleware(history)))
   );
 };

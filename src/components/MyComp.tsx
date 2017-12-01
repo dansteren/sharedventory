@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { Item, State } from '../types';
+import { State } from '../reducers';
+import { Item } from '../reducers/items';
 
 interface StateProps {
   items: Item[];

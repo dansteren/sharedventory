@@ -1,54 +1,42 @@
 import * as React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router';
+
 import AppBar from 'material-ui/AppBar';
 import FAB from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import AccountIcon from 'material-ui/svg-icons/action/account-circle';
+import Avatar from 'material-ui/Avatar';
 
+import { State } from './reducers';
+import { openDrawer, closeDrawer } from './actions';
 import './App.css';
 
-interface SettingsMenuProps {}
-
-const SettingsMenu = (props: SettingsMenuProps) => (
-  <IconMenu
-    {...props}
-    iconButtonElement={
-      <IconButton>
-        <AccountIcon color="white" />
-      </IconButton>
-    }
-    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-  >
-    <MenuItem primaryText="Account" />
-    <MenuItem primaryText="Settings" />
-    <MenuItem primaryText="Sign out" />
-  </IconMenu>
-);
-
-interface State {
-  open: boolean;
+interface StateProps {
+  drawerOpen: boolean;
 }
 
-class App extends React.Component<{}, State> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      open: false
-    };
-  }
-  handleClose = () => this.setState({ open: false });
+interface DispatchProps {
+  openDrawer: () => void;
+  closeDrawer: () => void;
+}
+
+type Props = StateProps & DispatchProps & RouteComponentProps<void>;
+
+class App extends React.Component<Props, {}> {
+  handleClose = () => this.props.closeDrawer();
 
   render() {
     return (
       <div className="App">
         <Drawer
           docked={false}
-          onRequestChange={open => this.setState({ open })}
-          open={this.state.open}
+          onRequestChange={open =>
+            open ? this.props.openDrawer() : this.props.closeDrawer()
+          }
+          open={this.props.drawerOpen}
         >
           <MenuItem onClick={this.handleClose}>All</MenuItem>
           <MenuItem onClick={this.handleClose}>Appliances</MenuItem>
@@ -88,12 +76,22 @@ class App extends React.Component<{}, State> {
           <MenuItem onClick={this.handleClose}>Wine</MenuItem>
         </Drawer>
         <AppBar
-          onLeftIconButtonTouchTap={() =>
-            this.setState({ open: !this.state.open })
-          }
+          onLeftIconButtonTouchTap={this.props.openDrawer}
           title="Sharedventory"
-          iconElementRight={<SettingsMenu />}
-        />
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Avatar
+              src="https://files.graph.cool/cj8p2chm900y20159qr8l9z70/cj97znly903ge015131ash1i0"
+              size={32}
+            />
+          </div>
+        </AppBar>
         <FAB style={{ position: 'absolute', bottom: 0, right: 0, margin: 25 }}>
           <ContentAdd />
         </FAB>
@@ -102,4 +100,23 @@ class App extends React.Component<{}, State> {
   }
 }
 
-export default App;
+const mapStateToProps = (state: State) => {
+  const stateProps: StateProps = {
+    drawerOpen: state.view.drawerOpen
+  };
+  return stateProps;
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<State>) => {
+  const dispatchProps: DispatchProps = {
+    openDrawer() {
+      dispatch(openDrawer());
+    },
+    closeDrawer() {
+      dispatch(closeDrawer());
+    }
+  };
+  return dispatchProps;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

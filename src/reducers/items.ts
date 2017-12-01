@@ -1,9 +1,39 @@
 import * as uuid from 'uuid';
-import { AnyAction } from 'redux';
+import { Action, AnyAction } from 'redux';
 
-import { Item, AddItemAction } from '../types';
+export type Visibility = 'PUBLIC' | 'PRIVATE';
+export type DateTime = number;
+export type UserId = string;
 
-const items = (state: Item[] = [], action: AnyAction) => {
+export interface AddItemAction extends Action {
+  data: Partial<Item>;
+}
+
+export interface Loan {
+  to: UserId;
+  on: DateTime;
+  due: DateTime;
+}
+
+export interface Item {
+  id: string;
+  createdAt: DateTime;
+  updatedAt: DateTime;
+  name: string;
+  category: string;
+  visibility: Visibility;
+  acquisitionDate?: DateTime;
+  additionalInfo?: string;
+  estimatedValue?: number;
+  loan?: Loan;
+  picture?: string;
+  quantity?: number;
+  storageLocation?: string;
+}
+
+export type ItemsState = Item[];
+
+const items = (state: ItemsState = [], action: AnyAction) => {
   switch (action.type) {
     case 'ADD_ITEM':
       const newItem: Item = {

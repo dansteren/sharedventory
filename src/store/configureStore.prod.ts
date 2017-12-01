@@ -12,7 +12,7 @@ import * as reducers from '../reducers';
  */
 const configureStore = (history: History) => {
   const store = createStore(
-    combineReducers({ ...reducers, routerReducer }),
+    combineReducers<reducers.State>({ ...reducers, routerReducer }),
     applyMiddleware(routerMiddleware(history))
   );
   return store;

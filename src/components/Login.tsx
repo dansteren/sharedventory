@@ -7,9 +7,9 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-const authSuccess = () => ({
-  type: 'AUTH_SUCCESS'
-});
+const boxes = require('../assets/boxes.svg');
+
+import { signIn } from '../actions';
 
 interface LoginProps extends RouteComponentProps<void> {
   login: () => void;
@@ -24,7 +24,8 @@ class Login extends React.Component<LoginProps, {}> {
           justifyContent: 'center',
           alignItems: 'center',
           height: '100vh',
-          backgroundColor: grey100
+          backgroundColor: grey100,
+          backgroundImage: `url(${boxes})`
         }}
       >
         <Paper
@@ -64,7 +65,7 @@ class Login extends React.Component<LoginProps, {}> {
 
 export default connect(null, dispatch => ({
   login: () => {
-    dispatch(authSuccess());
+    dispatch(signIn());
     dispatch(push('/'));
   }
 }))(Login);

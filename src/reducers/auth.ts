@@ -1,17 +1,21 @@
 import { AnyAction } from 'redux';
 
-const initialState = {
+export interface AuthState {
+  isAuthenticated: boolean;
+}
+
+const initialState: AuthState = {
   isAuthenticated: false
 };
 
-const auth = (state = initialState, action: AnyAction) => {
+const auth = (state: AuthState = initialState, action: AnyAction) => {
   switch (action.type) {
     case 'AUTH_SUCCESS':
       return {
         ...state,
         isAuthenticated: true
       };
-    case 'AUTH_FAIL':
+    case 'SIGN_OUT':
       return {
         ...state,
         isAuthenticated: false

@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { push } from 'react-router-redux';
 
-const authFail = () => ({
-  type: 'AUTH_FAIL'
-});
+import { signOut } from '../actions';
 
-interface HomeProps extends RouteComponentProps<void> {
+interface DispatchProps {
   logout: () => void;
 }
 
-class Home extends React.Component<HomeProps, {}> {
+type Props = {} & DispatchProps & RouteComponentProps<void>;
+
+class Home extends React.Component<Props, {}> {
   componentWillMount() {
     alert('Private home is at: ' + this.props.location.pathname);
   }
@@ -23,7 +23,7 @@ class Home extends React.Component<HomeProps, {}> {
 
 export default connect(null, dispatch => ({
   logout: () => {
-    dispatch(authFail());
+    dispatch(signOut());
     dispatch(push('/login'));
   }
 }))(Home);
