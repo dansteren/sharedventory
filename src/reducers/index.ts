@@ -11,16 +11,3 @@ export interface State {
   items: ItemsState;
   view: ViewState;
 }
-
-// export interface State {
-//   user: {
-//     id: string;
-//     createdAt: DateTime;
-//     updatedAt: DateTime;
-//     firstName: string;
-//     lastName: string;
-//     email: string;
-//     token: string;
-//   };
-//   items: Item[];
-// }

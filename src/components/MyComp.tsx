@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { State } from '../reducers';
 import { Item } from '../reducers/items';
+import { addItem } from '../actions';
 
 interface StateProps {
   items: Item[];
@@ -52,11 +53,7 @@ const mapDispatchToProps = (dispatch: Dispatch<State>) => {
         category: 'Books',
         visibility: 'PRIVATE'
       };
-      const action = {
-        type: 'ADD_ITEM',
-        data: newItem
-      };
-      dispatch(action);
+      dispatch(addItem(newItem));
     }
   };
   return dispatchProps;

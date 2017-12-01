@@ -1,17 +1,15 @@
-import { AnyAction } from 'redux';
+import { ViewAction } from '../actions';
 
 export interface ViewState {
   drawerOpen: boolean;
 }
 
-const initialState = {
+const initialState: ViewState = {
   drawerOpen: false
 };
 
-const items = (state: ViewState = initialState, action: AnyAction) => {
+const items = (state: ViewState = initialState, action: ViewAction) => {
   switch (action.type) {
-    case 'TOGGLE_DRAWER':
-      return { ...state, drawerOpen: !state.drawerOpen };
     case 'OPEN_DRAWER':
       return { ...state, drawerOpen: true };
     case 'CLOSE_DRAWER':
