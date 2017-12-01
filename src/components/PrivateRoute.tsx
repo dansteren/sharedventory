@@ -1,6 +1,10 @@
 import * as React from 'react';
-import { Route, RouteComponentProps, RouteProps } from 'react-router';
-import { Redirect } from 'react-router-dom';
+import {
+  Route,
+  RouteComponentProps,
+  RouteProps,
+  Redirect
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { State } from '../reducers';

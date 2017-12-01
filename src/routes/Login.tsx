@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { cyan500, grey100 } from 'material-ui/styles/colors';
 import Paper from 'material-ui/Paper';
