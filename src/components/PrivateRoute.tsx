@@ -7,19 +7,21 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { State } from '../reducers';
+import { AppState } from '../reducers';
+
+interface StateProps {
+  isAuthenticated: boolean;
+}
 
 interface PrivateRouteProps {
-  isAuthenticated: boolean;
   component:
     | React.ComponentType<RouteComponentProps<any>> //tslint:disable-line
     | React.ComponentType<any>; //tslint:disable-line
 }
 
-class PrivateRouteContainer extends React.Component<
-  PrivateRouteProps & RouteProps,
-  {}
-> {
+type Props = StateProps & PrivateRouteProps & RouteProps;
+
+class PrivateRouteContainer extends React.Component<Props, {}> {
   render() {
     const { isAuthenticated, component: Component, ...props } = this.props;
 
@@ -43,8 +45,10 @@ class PrivateRouteContainer extends React.Component<
   }
 }
 
-const PrivateRoute = connect((state: State) => ({
-  isAuthenticated: state.auth.isAuthenticated
-}))(PrivateRouteContainer);
+const mapStateToProps = (state: AppState): StateProps => ({
+  isAuthenticated: state.auth.id ? true : false
+});
+
+const PrivateRoute = connect(mapStateToProps)(PrivateRouteContainer);
 
 export default PrivateRoute;

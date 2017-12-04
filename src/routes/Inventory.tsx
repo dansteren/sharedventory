@@ -10,7 +10,7 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Avatar from 'material-ui/Avatar';
 
-import { State } from '../reducers';
+import { AppState } from '../reducers';
 import { openDrawer, closeDrawer } from '../actions';
 
 interface StateProps {
@@ -99,23 +99,17 @@ class Inventory extends React.Component<Props, {}> {
   }
 }
 
-const mapStateToProps = (state: State) => {
-  const stateProps: StateProps = {
-    drawerOpen: state.view.drawerOpen
-  };
-  return stateProps;
-};
+const mapStateToProps = (state: AppState): StateProps => ({
+  drawerOpen: state.view.drawerOpen
+});
 
-const mapDispatchToProps = (dispatch: Dispatch<State>) => {
-  const dispatchProps: DispatchProps = {
-    openDrawer() {
-      dispatch(openDrawer());
-    },
-    closeDrawer() {
-      dispatch(closeDrawer());
-    }
-  };
-  return dispatchProps;
-};
+const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
+  openDrawer() {
+    dispatch(openDrawer());
+  },
+  closeDrawer() {
+    dispatch(closeDrawer());
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inventory);

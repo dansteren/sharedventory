@@ -1,12 +1,12 @@
-import { AuthState } from '../reducers/auth';
-import { ItemsState } from '../reducers/items';
-import { ViewState } from '../reducers/view';
+import { AuthState } from './auth';
+import { ItemsState } from './items';
+import { ViewState } from './view';
 
 export { default as auth } from './auth';
 export { default as items } from './items';
 export { default as view } from './view';
 
-export interface State {
+export interface AppState {
   auth: AuthState;
   items: ItemsState;
   view: ViewState;

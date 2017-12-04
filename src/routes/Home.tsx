@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
-import { signOut } from '../actions';
+import { AppState } from '../reducers';
+import { clearUser } from '../actions';
 
 interface StateProps {}
 
@@ -23,9 +25,11 @@ class Home extends React.Component<Props, {}> {
   }
 }
 
-export default connect(null, dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
   logout: () => {
-    dispatch(signOut());
+    dispatch(clearUser());
     dispatch(push('/login'));
   }
-}))(Home);
+});
+
+export default connect(null, mapDispatchToProps)(Home);

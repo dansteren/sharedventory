@@ -8,11 +8,11 @@ import { History } from 'history';
 
 import { Inventory, Login, NotFound } from './routes';
 import { PrivateRoute } from './components';
-import { State } from './reducers';
+import { AppState } from './reducers';
 import { theme } from './theme';
 
 interface Props {
-  store: Store<State>;
+  store: Store<AppState>;
   history: History;
 }
 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { replace } from 'react-router-redux';
@@ -6,6 +7,7 @@ import { darkBlack, red500 } from 'material-ui/styles/colors';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 
+import { AppState } from '../reducers';
 const boxes = require('../assets/boxes.svg');
 
 interface StateProps {}
@@ -62,8 +64,10 @@ class NotFound extends React.Component<Props, {}> {
   }
 }
 
-export default connect(null, dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
   redirect() {
     dispatch(replace('/'));
   }
-}))(NotFound);
+});
+
+export default connect(null, mapDispatchToProps)(NotFound);

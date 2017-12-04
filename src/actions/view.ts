@@ -2,18 +2,27 @@ interface OpenDrawerAction {
   type: 'OPEN_DRAWER';
 }
 
+export const openDrawer = (): OpenDrawerAction => ({
+  type: 'OPEN_DRAWER'
+});
+
 interface CloseDrawerAction {
   type: 'CLOSE_DRAWER';
 }
 
-export const openDrawer = () =>
-  ({
-    type: 'OPEN_DRAWER'
-  } as OpenDrawerAction);
+export const closeDrawer = (): CloseDrawerAction => ({
+  type: 'CLOSE_DRAWER'
+});
 
-export const closeDrawer = () =>
-  ({
-    type: 'CLOSE_DRAWER'
-  } as CloseDrawerAction);
+interface ShowLoginErrorAction {
+  type: 'SHOW_LOGIN_ERROR';
+}
 
-export type ViewAction = OpenDrawerAction | CloseDrawerAction;
+export const showLoginError = (): ShowLoginErrorAction => ({
+  type: 'SHOW_LOGIN_ERROR'
+});
+
+export type ViewAction =
+  | OpenDrawerAction
+  | CloseDrawerAction
+  | ShowLoginErrorAction;

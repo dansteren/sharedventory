@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { push } from 'react-router-redux';
 import { cyan500, grey100 } from 'material-ui/styles/colors';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -9,17 +9,35 @@ import TextField from 'material-ui/TextField';
 
 const boxes = require('../assets/boxes.svg');
 
-import { signIn } from '../actions';
+import { login } from '../actions';
+import { AppState } from '../reducers';
 
-interface StateProps {}
+interface StateProps {
+  errorText: string;
+}
 
 interface DispatchProps {
-  login: () => void;
+  login: (username: string, password: string) => void;
+}
+
+interface State {
+  username: string;
+  password: string;
+  error: string;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps<void>;
 
-class Login extends React.Component<Props, {}> {
+class Login extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      error: ''
+    };
+  }
+
   render() {
     return (
       <div
@@ -48,7 +66,15 @@ class Login extends React.Component<Props, {}> {
           <p style={{ fontSize: 24 }}>Sign In</p>
           <TextField
             floatingLabelText="Email or Username"
+            style={{ width: 'auto' }}
+            onChange={(event, value) => this.setState({ username: value })}
+          />
+          <TextField
+            floatingLabelText="Password"
             style={{ width: 'auto', marginBottom: 50 }}
+            type="password"
+            errorText={this.props.errorText}
+            onChange={(event, value) => this.setState({ password: value })}
           />
           <div
             style={{
@@ -59,7 +85,13 @@ class Login extends React.Component<Props, {}> {
             }}
           >
             <a style={{ color: cyan500, fontSize: 14 }}>More Options</a>
-            <RaisedButton primary label="Sign In" onClick={this.props.login} />
+            <RaisedButton
+              primary
+              label="Sign In"
+              onClick={() =>
+                this.props.login(this.state.username, this.state.password)
+              }
+            />
           </div>
         </Paper>
       </div>
@@ -67,9 +99,14 @@ class Login extends React.Component<Props, {}> {
   }
 }
 
-export default connect(null, dispatch => ({
-  login: () => {
-    dispatch(signIn());
-    dispatch(push('/'));
+const mapStateToProps = (state: AppState): StateProps => ({
+  errorText: state.view.loginError
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
+  login(username: string, password: string) {
+    dispatch(login(username, password));
   }
-}))(Login);
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

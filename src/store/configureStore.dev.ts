@@ -2,6 +2,7 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { History } from 'history';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
 import * as reducers from '../reducers';
 
@@ -13,8 +14,8 @@ import * as reducers from '../reducers';
  */
 const configureStore = (history: History) => {
   return createStore(
-    combineReducers<reducers.State>({ ...reducers, routerReducer }),
-    composeWithDevTools(applyMiddleware(routerMiddleware(history)))
+    combineReducers<reducers.AppState>({ ...reducers, routerReducer }),
+    composeWithDevTools(applyMiddleware(routerMiddleware(history), thunk))
   );
 };
 

@@ -1,24 +1,31 @@
 import { AuthAction } from '../actions';
 
 export interface AuthState {
-  isAuthenticated: boolean;
+  id: string;
+  token: string;
 }
 
 const initialState: AuthState = {
-  isAuthenticated: false
+  id: '',
+  token: ''
 };
 
-const auth = (state: AuthState = initialState, action: AuthAction) => {
+const auth = (
+  state: AuthState = initialState,
+  action: AuthAction
+): AuthState => {
   switch (action.type) {
-    case 'AUTH_SUCCESS':
+    case 'SET_USER':
       return {
         ...state,
-        isAuthenticated: true
+        id: action.id,
+        token: action.token
       };
-    case 'SIGN_OUT':
+    case 'CLEAR_USER':
       return {
         ...state,
-        isAuthenticated: false
+        id: '',
+        token: ''
       };
     default:
       return state;

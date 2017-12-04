@@ -5,10 +5,9 @@ interface AddItemAction {
   data: Partial<Item>;
 }
 
-export const addItem = (item: Partial<Item>) =>
-  ({
-    type: 'ADD_ITEM',
-    data: item
-  } as AddItemAction);
+export const addItem = (item: Partial<Item>): AddItemAction => ({
+  type: 'ADD_ITEM',
+  data: item
+});
 
 export type ItemAction = AddItemAction;

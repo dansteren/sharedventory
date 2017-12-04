@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { State } from '../reducers';
+import { AppState } from '../reducers';
 import { Item } from '../reducers/items';
 import { addItem } from '../actions';
 
@@ -38,25 +38,19 @@ class MyComp extends React.Component<Props, {}> {
   }
 }
 
-const mapStateToProps = (state: State) => {
-  const stateProps: StateProps = {
-    items: state.items
-  };
-  return stateProps;
-};
+const mapStateToProps = (state: AppState): StateProps => ({
+  items: state.items
+});
 
-const mapDispatchToProps = (dispatch: Dispatch<State>) => {
-  const dispatchProps: DispatchProps = {
-    onClick: () => {
-      const newItem: Partial<Item> = {
-        name: 'New Item',
-        category: 'Books',
-        visibility: 'PRIVATE'
-      };
-      dispatch(addItem(newItem));
-    }
-  };
-  return dispatchProps;
-};
+const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
+  onClick: () => {
+    const newItem: Partial<Item> = {
+      name: 'New Item',
+      category: 'Books',
+      visibility: 'PRIVATE'
+    };
+    dispatch(addItem(newItem));
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyComp);
