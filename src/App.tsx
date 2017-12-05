@@ -3,7 +3,7 @@ import { Store } from 'redux';
 import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { ConnectedRouter } from 'react-router-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { History } from 'history';
 
 import { Inventory, Login, NotFound } from './routes';
@@ -25,7 +25,8 @@ class App extends React.Component<Props, {}> {
           <ConnectedRouter history={history}>
             <Switch>
               <Route path="/login" component={Login} />
-              <PrivateRoute exact path="/" component={Inventory} />
+              <PrivateRoute path="/inventory" component={Inventory} />
+              <Redirect to="/inventory" />
               <Route component={NotFound} />
             </Switch>
           </ConnectedRouter>
