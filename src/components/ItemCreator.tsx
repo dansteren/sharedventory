@@ -15,7 +15,7 @@ import TextField from 'material-ui/TextField';
 // App Code
 import { addItem, AddItemProps, closeDialog } from '../actions';
 import { AppState } from '../reducers';
-import { categories } from '../utils/categories';
+import { categories, sluggify } from '../utils/categories';
 
 interface StateProps {
   open: boolean;
@@ -132,11 +132,11 @@ class ItemCreator extends React.Component<Props, State> {
           value={this.state.category}
           onChange={(e, key, category) => this.setState({ category })}
         >
-          {categories.map(item => (
+          {categories.map(category => (
             <MenuItem
-              key={item.value}
-              value={item.value}
-              primaryText={item.label}
+              key={sluggify(category)}
+              value={sluggify(category)}
+              primaryText={category}
             />
           ))}
         </SelectField>
