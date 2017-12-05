@@ -26,7 +26,7 @@ class App extends React.Component<Props, {}> {
             <Switch>
               <Route path="/login" component={Login} />
               <PrivateRoute path="/inventory" component={Inventory} />
-              <Redirect to="/inventory" />
+              <Redirect exact from="/" to="/inventory" />
               <Route component={NotFound} />
             </Switch>
           </ConnectedRouter>
