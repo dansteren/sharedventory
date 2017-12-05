@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { RouteComponentProps, Route, Redirect } from 'react-router-dom';
+import { RouteComponentProps, Route, Redirect, Switch } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
 import FAB from 'material-ui/FloatingActionButton';
@@ -9,7 +9,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import Avatar from 'material-ui/Avatar';
 
-import { openDrawer } from '../actions';
+import { openDrawer, openDialog } from '../actions';
 import { AppState } from '../reducers';
 import { InventoryList, SideDrawer } from '../components';
 
@@ -19,6 +19,7 @@ interface StateProps {
 
 interface DispatchProps {
   openDrawer: () => void;
+  openDialog: () => void;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps<void>;
@@ -46,9 +47,22 @@ class Inventory extends React.Component<Props, {}> {
             />
           </div>
         </AppBar>
-        <Route path={`${match.url}/:category`} component={InventoryList} />
-        <Redirect to={`${match.url}/all`} />
-        <FAB style={{ position: 'absolute', bottom: 0, right: 0, margin: 25 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+          <Switch>
+            <Route path={`${match.url}/:category`} component={InventoryList} />
+            <Redirect to={`${match.url}/all`} />
+          </Switch>
+        </div>
+        <FAB
+          style={{ position: 'absolute', bottom: 0, right: 0, margin: 25 }}
+          onClick={this.props.openDialog}
+        >
           <ContentAdd />
         </FAB>
       </div>
@@ -59,6 +73,9 @@ class Inventory extends React.Component<Props, {}> {
 const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
   openDrawer() {
     dispatch(openDrawer());
+  },
+  openDialog() {
+    dispatch(openDialog());
   }
 });
 

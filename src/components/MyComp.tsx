@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { AppState } from '../reducers';
 import { Item } from '../reducers/items';
-import { addItem } from '../actions';
+import { addItem, AddItemProps } from '../actions';
 
 interface StateProps {
   items: Item[];
@@ -44,7 +44,7 @@ const mapStateToProps = (state: AppState): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
   onClick: () => {
-    const newItem: Partial<Item> = {
+    const newItem: AddItemProps = {
       name: 'New Item',
       category: 'Books',
       visibility: 'PRIVATE'

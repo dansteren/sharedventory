@@ -14,6 +14,22 @@ export const closeDrawer = (): CloseDrawerAction => ({
   type: 'CLOSE_DRAWER'
 });
 
+interface OpenDialogAction {
+  type: 'OPEN_DIALOG';
+}
+
+export const openDialog = (): OpenDialogAction => ({
+  type: 'OPEN_DIALOG'
+});
+
+interface CloseDialogAction {
+  type: 'CLOSE_DIALOG';
+}
+
+export const closeDialog = (): CloseDialogAction => ({
+  type: 'CLOSE_DIALOG'
+});
+
 interface ShowLoginErrorAction {
   type: 'SHOW_LOGIN_ERROR';
 }
@@ -25,4 +41,6 @@ export const showLoginError = (): ShowLoginErrorAction => ({
 export type ViewAction =
   | OpenDrawerAction
   | CloseDrawerAction
+  | OpenDialogAction
+  | CloseDialogAction
   | ShowLoginErrorAction;
