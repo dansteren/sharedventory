@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import * as reducers from '../reducers';
+import { loadState, saveState } from '../services/localstorage';
 
 /**
  * Configure store takes care of all store related setup. This can include:
@@ -13,10 +14,17 @@ import * as reducers from '../reducers';
  *   - Adding redux devtools
  */
 const configureStore = (history: History) => {
-  return createStore(
+  const store = createStore<reducers.AppState>(
     combineReducers<reducers.AppState>({ ...reducers, routerReducer }),
+    loadState(),
     composeWithDevTools(applyMiddleware(routerMiddleware(history), thunk))
   );
+  store.subscribe(() => {
+    saveState({
+      auth: store.getState().auth
+    });
+  });
+  return store;
 };
 
 export default configureStore;
