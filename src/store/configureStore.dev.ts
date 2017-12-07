@@ -20,9 +20,7 @@ const configureStore = (history: History) => {
     composeWithDevTools(applyMiddleware(routerMiddleware(history), thunk))
   );
   store.subscribe(() => {
-    saveState({
-      auth: store.getState().auth
-    });
+    saveState(store.getState());
   });
   return store;
 };
