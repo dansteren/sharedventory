@@ -1,19 +1,18 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
 
-import App from './App';
 import configureStore from './store/configureStore';
 import registerServiceWorker from './registerServiceWorker';
 
+import App from './App';
 import './index.css';
 
-const store = configureStore();
+const history = createHistory();
+const store = configureStore(history);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <App store={store} history={history} />,
   document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();

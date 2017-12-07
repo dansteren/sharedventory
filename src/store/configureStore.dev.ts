@@ -1,5 +1,11 @@
-import { createStore } from 'redux';
-import { rootReducer } from '../reducers';
+import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { History } from 'history';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+
+import * as reducers from '../reducers';
+import { loadState, saveState } from '../services/localstorage';
 
 /**
  * Configure store takes care of all store related setup. This can include:
@@ -7,18 +13,15 @@ import { rootReducer } from '../reducers';
  *   - Adding middleware
  *   - Adding redux devtools
  */
-const configureStore = () => {
-  const devtools =
-    process.env.NODE_ENV === 'development' &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ //tslint:disable-line
-      ? (window as any).__REDUX_DEVTOOLS_EXTENSION__() //tslint:disable-line
-      : undefined;
-
-  const store = createStore(
-    rootReducer,
-    /* put persisted state here (think graphql auth token) */
-    devtools
+const configureStore = (history: History) => {
+  const store = createStore<reducers.AppState>(
+    combineReducers<reducers.AppState>({ ...reducers, routerReducer }),
+    loadState(),
+    composeWithDevTools(applyMiddleware(routerMiddleware(history), thunk))
   );
+  store.subscribe(() => {
+    saveState(store.getState());
+  });
   return store;
 };
 

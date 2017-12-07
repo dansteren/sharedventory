@@ -1,29 +1,37 @@
 import * as React from 'react';
+import { Store } from 'redux';
+import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import { ConnectedRouter } from 'react-router-redux';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { History } from 'history';
 
-import './App.css';
+import { Inventory, Login, NotFound } from './routes';
+import { PrivateRoute } from './components';
+import { AppState } from './reducers';
 import { theme } from './theme';
-const logo = require('./logo.svg');
 
-import { MyComp } from './components';
+interface Props {
+  store: Store<AppState>;
+  history: History;
+}
 
-class App extends React.Component {
+class App extends React.Component<Props, {}> {
   render() {
+    const { store, history } = this.props;
     return (
-      <MuiThemeProvider muiTheme={theme}>
-        <div className="App">
-          <AppBar title="My AppBar" />
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h2>Welcome to React</h2>
-          </div>
-          <p className="App-intro">
-            To get started, edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <MyComp />
-        </div>
-      </MuiThemeProvider>
+      <Provider store={store}>
+        <MuiThemeProvider muiTheme={theme}>
+          <ConnectedRouter history={history}>
+            <Switch>
+              <Route path="/login" component={Login} />
+              <PrivateRoute path="/inventory" component={Inventory} />
+              <Redirect exact from="/" to="/inventory" />
+              <Route component={NotFound} />
+            </Switch>
+          </ConnectedRouter>
+        </MuiThemeProvider>
+      </Provider>
     );
   }
 }

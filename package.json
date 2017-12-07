@@ -4,13 +4,15 @@
   "private": true,
   "dependencies": {
     "material-ui": "^0.19.4",
+    "moment": "^2.19.3",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
-    "react-router": "^4.2.0",
-    "react-router-redux": "^4.0.8",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.8",
     "react-scripts-ts": "2.8.0",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "uuid": "^3.1.0"
   },
   "scripts": {
@@ -21,11 +23,14 @@
   },
   "devDependencies": {
     "@types/jest": "^21.1.8",
-    "@types/material-ui": "^0.18.4",
+    "@types/material-ui": "^0.18.5",
     "@types/node": "^8.0.53",
     "@types/react": "^16.0.25",
     "@types/react-dom": "^16.0.3",
     "@types/react-redux": "^5.0.14",
-    "@types/uuid": "^3.4.3"
+    "@types/react-router-dom": "^4.2.3",
+    "@types/react-router-redux": "^5.0.10",
+    "@types/uuid": "^3.4.3",
+    "redux-devtools-extension": "^2.13.2"
   }
 }

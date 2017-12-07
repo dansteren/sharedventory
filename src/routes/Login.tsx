@@ -1,0 +1,112 @@
+import * as React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
+import { cyan500, grey100 } from 'material-ui/styles/colors';
+import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
+const boxes = require('../assets/boxes.svg');
+
+import { login } from '../actions';
+import { AppState } from '../reducers';
+
+interface StateProps {
+  errorText: string;
+}
+
+interface DispatchProps {
+  login: (username: string, password: string) => void;
+}
+
+interface State {
+  username: string;
+  password: string;
+  error: string;
+}
+
+type Props = StateProps & DispatchProps & RouteComponentProps<void>;
+
+class Login extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      error: ''
+    };
+  }
+
+  render() {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          backgroundColor: grey100,
+          backgroundImage: `url(${boxes})`
+        }}
+      >
+        <Paper
+          zDepth={1}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: 400,
+            height: 450,
+            padding: 40
+          }}
+        >
+          <h1 style={{ fontWeight: 400, fontSize: 16, color: cyan500 }}>
+            Sharedventory
+          </h1>
+          <p style={{ fontSize: 24 }}>Sign In</p>
+          <TextField
+            floatingLabelText="Email or Username"
+            style={{ width: 'auto' }}
+            onChange={(event, value) => this.setState({ username: value })}
+          />
+          <TextField
+            floatingLabelText="Password"
+            style={{ width: 'auto', marginBottom: 50 }}
+            type="password"
+            errorText={this.props.errorText}
+            onChange={(event, value) => this.setState({ password: value })}
+          />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <a style={{ color: cyan500, fontSize: 14 }}>More Options</a>
+            <RaisedButton
+              primary
+              label="Sign In"
+              onClick={() =>
+                this.props.login(this.state.username, this.state.password)
+              }
+            />
+          </div>
+        </Paper>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state: AppState): StateProps => ({
+  errorText: state.view.loginError
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
+  login(username: string, password: string) {
+    dispatch(login(username, password));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
