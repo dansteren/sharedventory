@@ -34,10 +34,11 @@ class InventoryList extends React.Component<Props, {}> {
         <ItemCreator />
         <div
           style={{
-            width: 500,
-            height: 500,
-            backgroundColor: 'red',
-            marginTop: 32
+            display: 'flex',
+            flexDirection: 'row',
+            flexFlow: 'wrap',
+            alignContent: 'center',
+            maxWidth: 800
           }}
         >
           {items.length > 0 ? items : <div> No Items </div>}

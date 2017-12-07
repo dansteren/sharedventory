@@ -6,8 +6,7 @@ import { RouteComponentProps, Route, Redirect, Switch } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import FAB from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-
-import Avatar from 'material-ui/Avatar';
+import { grey200 } from 'material-ui/styles/colors';
 
 import { openDrawer, openDialog } from '../actions';
 import { AppState } from '../reducers';
@@ -33,25 +32,15 @@ class Inventory extends React.Component<Props, {}> {
         <AppBar
           onLeftIconButtonTouchTap={this.props.openDrawer}
           title="Sharedventory"
-        >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            <Avatar
-              src="https://files.graph.cool/cj8p2chm900y20159qr8l9z70/cj97znly903ge015131ash1i0"
-              size={32}
-            />
-          </div>
-        </AppBar>
+        />
         <div
           style={{
+            height: 'calc(100vh - 64px)',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
+            alignItems: 'center',
+            backgroundColor: grey200,
+            flexGrow: 1
           }}
         >
           <Switch>
