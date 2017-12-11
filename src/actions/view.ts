@@ -38,9 +38,27 @@ export const showLoginError = (): ShowLoginErrorAction => ({
   type: 'SHOW_LOGIN_ERROR'
 });
 
+interface OpenCategoryDialogAction {
+  type: 'OPEN_CATEGORY_DIALOG';
+}
+
+export const openCategoryDialog = (): OpenCategoryDialogAction => ({
+  type: 'OPEN_CATEGORY_DIALOG'
+});
+
+interface CloseCategoryDialogAction {
+  type: 'CLOSE_CATEGORY_DIALOG';
+}
+
+export const closeCategoryDialog = (): CloseCategoryDialogAction => ({
+  type: 'CLOSE_CATEGORY_DIALOG'
+});
+
 export type ViewAction =
   | OpenDrawerAction
   | CloseDrawerAction
   | OpenDialogAction
   | CloseDialogAction
+  | OpenCategoryDialogAction
+  | CloseCategoryDialogAction
   | ShowLoginErrorAction;

@@ -4,19 +4,25 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
+import { List, ListItem } from 'material-ui/List';
+import LabelIcon from 'material-ui/svg-icons/action/label';
+import HomeIcon from 'material-ui/svg-icons/action/home';
 
-import { openDrawer, closeDrawer } from '../actions';
+import { openDrawer, closeDrawer, openCategoryDialog } from '../actions';
 import { AppState } from '../reducers';
-import { categories, sluggify } from '../utils/categories';
+import { Subheader } from '../components';
+import { sluggify } from '../utils/categories';
 
 interface StateProps {
   open: boolean;
+  categories: string[];
 }
 
 interface DispatchProps {
   openDrawer: () => void;
   closeDrawer: () => void;
+  openCategoryDialog: () => void;
   navigate: (category: string) => void;
 }
 
@@ -32,22 +38,37 @@ class SideDrawer extends React.Component<Props, {}> {
         }
         open={this.props.open}
       >
-        <MenuItem onClick={() => this.props.navigate('all')}>All</MenuItem>
-        {categories.map(category => (
-          <MenuItem
-            key={sluggify(category)}
-            onClick={() => this.props.navigate(sluggify(category))}
-          >
-            {category}
-          </MenuItem>
-        ))}
+        <List>
+          <ListItem
+            style={{ fontSize: 13 }}
+            primaryText="All Items"
+            leftIcon={<HomeIcon />}
+            onClick={() => this.props.navigate('all')}
+          />
+          <Divider />
+          <Subheader
+            text="Categories"
+            buttonText="Edit"
+            onButtonClick={this.props.openCategoryDialog}
+          />
+          {this.props.categories.map(category => (
+            <ListItem
+              key={sluggify(category)}
+              style={{ fontSize: 13 }}
+              primaryText={category}
+              leftIcon={<LabelIcon />}
+              onClick={() => this.props.navigate(sluggify(category))}
+            />
+          ))}
+        </List>
       </Drawer>
     );
   }
 }
 
 const mapStateToProps = (state: AppState): StateProps => ({
-  open: state.view.drawerOpen
+  open: state.view.drawerOpen,
+  categories: state.categories
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
@@ -56,6 +77,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
   },
   closeDrawer() {
     dispatch(closeDrawer());
+  },
+  openCategoryDialog() {
+    dispatch(openCategoryDialog());
   },
   navigate(category: string) {
     dispatch(push(`/inventory/${category}`));
