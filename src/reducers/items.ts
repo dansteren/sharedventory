@@ -6,6 +6,35 @@ export type Visibility = 'PUBLIC' | 'PRIVATE';
 export type DateTime = number;
 export type UserId = string;
 
+export const months = [
+  'JANUARY',
+  'FEBRUARY',
+  'MARCH',
+  'APRIL',
+  'MAY',
+  'JUNE',
+  'JULY',
+  'AUGUST',
+  'SEPTEMBER',
+  'OCTOBER',
+  'NOVEMBER',
+  'DECEMBER'
+];
+
+export type Month =
+  | 'JANUARY'
+  | 'FEBRUARY'
+  | 'MARCH'
+  | 'APRIL'
+  | 'MAY'
+  | 'JUNE'
+  | 'JULY'
+  | 'AUGUST'
+  | 'SEPTEMBER'
+  | 'OCTOBER'
+  | 'NOVEMBER'
+  | 'DECEMBER';
+
 export interface Loan {
   to: UserId;
   on: DateTime;
@@ -19,7 +48,8 @@ export interface Item {
   name: string;
   category: string;
   visibility: Visibility;
-  acquisitionDate?: DateTime;
+  acquisitionMonth?: Month;
+  acquisitionYear?: DateTime;
   additionalInfo?: string;
   purchasePrice?: number;
   loan?: Loan;
@@ -40,7 +70,8 @@ const items = (state: ItemsState = [], action: ItemAction): ItemsState => {
         name: action.data.name || '',
         category: action.data.category || '',
         visibility: action.data.visibility || 'PRIVATE',
-        acquisitionDate: action.data.acquisitionDate,
+        acquisitionMonth: action.data.acquisitionMonth,
+        acquisitionYear: action.data.acquisitionYear,
         additionalInfo: action.data.additionalInfo,
         purchasePrice: action.data.purchasePrice,
         loan: action.data.loan,

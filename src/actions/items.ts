@@ -1,10 +1,11 @@
-import { Item, Loan, Visibility, DateTime } from '../reducers/items';
+import { Item, Loan, Visibility, DateTime, Month } from '../reducers/items';
 
 export interface AddItemProps {
   name: string;
   category: string;
   visibility: Visibility;
-  acquisitionDate?: DateTime;
+  acquisitionMonth?: Month;
+  acquisitionYear?: DateTime;
   additionalInfo?: string;
   purchasePrice?: number;
   loan?: Loan;

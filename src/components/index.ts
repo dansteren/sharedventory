@@ -1,5 +1,6 @@
 export { default as CategoryEditor } from './CategoryEditor';
 export { default as CategoryItem } from './CategoryItem';
+export { default as FormItem } from './FormItem';
 export { default as InventoryItem } from './InventoryItem';
 export { default as InventoryList } from './InventoryList';
 export { default as ItemCreator } from './ItemCreator';

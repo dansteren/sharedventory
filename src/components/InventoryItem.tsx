@@ -1,13 +1,12 @@
 // Libraries
 import * as React from 'react';
-import * as moment from 'moment';
 
 // Material UI Components
 import Paper from 'material-ui/Paper';
 
 // App Code
 import { Item } from '../reducers/items';
-import { toUSCurrency } from '../utils';
+import { toUSCurrency, toTitleCase } from '../utils';
 import { Ribbon } from '../components';
 
 interface Props {
@@ -24,12 +23,15 @@ class InventoryItem extends React.Component<Props, {}> {
           {item.quantity && item.quantity > 1 && `(${item.quantity})`}
         </p>
         <p>
-          {item.acquisitionDate
-            ? moment(item.acquisitionDate).format('ll')
+          {item.acquisitionMonth || item.acquisitionYear
+            ? (toTitleCase(item.acquisitionMonth) || '') +
+              (' ' + item.acquisitionYear || '')
             : 'Unknown Acquisition Date'}
         </p>
         <p>
-          {item.purchasePrice ? toUSCurrency(item.purchasePrice) : 'Invaluable'}
+          {item.purchasePrice
+            ? toUSCurrency(item.purchasePrice)
+            : 'Unknown Purchase Price'}
         </p>
         <Ribbon
           style={{
