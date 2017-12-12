@@ -58,7 +58,7 @@ class CategoryEditor extends React.Component<Props, {}> {
       >
         <List>
           <NewCategory />
-          {this.props.categories.map(category => {
+          {this.props.categories.sort().map(category => {
             return <CategoryItem key={category} category={category} />;
           })}
         </List>

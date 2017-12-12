@@ -51,15 +51,17 @@ class SideDrawer extends React.Component<Props, {}> {
             buttonText="Edit"
             onButtonClick={this.props.openCategoryDialog}
           />
-          {this.props.categories.map(category => (
-            <ListItem
-              key={sluggify(category)}
-              style={{ fontSize: 13 }}
-              primaryText={category}
-              leftIcon={<LabelIcon />}
-              onClick={() => this.props.navigate(sluggify(category))}
-            />
-          ))}
+          {this.props.categories
+            .sort()
+            .map(category => (
+              <ListItem
+                key={sluggify(category)}
+                style={{ fontSize: 13 }}
+                primaryText={category}
+                leftIcon={<LabelIcon />}
+                onClick={() => this.props.navigate(sluggify(category))}
+              />
+            ))}
         </List>
       </Drawer>
     );
