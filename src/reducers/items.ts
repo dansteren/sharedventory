@@ -21,7 +21,7 @@ export interface Item {
   visibility: Visibility;
   acquisitionDate?: DateTime;
   additionalInfo?: string;
-  estimatedValue?: number;
+  purchasePrice?: number;
   loan?: Loan;
   picture?: string;
   quantity?: number;
@@ -42,7 +42,7 @@ const items = (state: ItemsState = [], action: ItemAction): ItemsState => {
         visibility: action.data.visibility || 'PRIVATE',
         acquisitionDate: action.data.acquisitionDate,
         additionalInfo: action.data.additionalInfo,
-        estimatedValue: action.data.estimatedValue,
+        purchasePrice: action.data.purchasePrice,
         loan: action.data.loan,
         picture: action.data.picture,
         quantity: action.data.quantity,

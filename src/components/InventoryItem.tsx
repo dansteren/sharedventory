@@ -29,9 +29,7 @@ class InventoryItem extends React.Component<Props, {}> {
             : 'Unknown Acquisition Date'}
         </p>
         <p>
-          {item.estimatedValue
-            ? toUSCurrency(item.estimatedValue)
-            : 'Invaluable'}
+          {item.purchasePrice ? toUSCurrency(item.purchasePrice) : 'Invaluable'}
         </p>
         <Ribbon
           style={{

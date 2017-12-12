@@ -6,7 +6,7 @@ export interface AddItemProps {
   visibility: Visibility;
   acquisitionDate?: DateTime;
   additionalInfo?: string;
-  estimatedValue?: number;
+  purchasePrice?: number;
   loan?: Loan;
   picture?: string;
   quantity?: number;

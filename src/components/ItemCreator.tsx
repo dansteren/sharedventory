@@ -63,7 +63,7 @@ class ItemCreator extends React.Component<Props, State> {
       visibility: 'PRIVATE',
       acquisitionDate: undefined,
       additionalInfo: undefined,
-      estimatedValue: undefined,
+      purchasePrice: undefined,
       loan: undefined,
       picture: undefined,
       quantity: undefined,
@@ -153,12 +153,12 @@ class ItemCreator extends React.Component<Props, State> {
           }
         />
         <TextField
-          floatingLabelText="Estimated Value"
+          floatingLabelText="Purchase Price"
           type="number"
           fullWidth
-          value={this.state.estimatedValue}
-          onChange={(e, estimatedValue) =>
-            this.setState({ estimatedValue: parseFloat(estimatedValue) })
+          value={this.state.purchasePrice}
+          onChange={(e, purchasePrice) =>
+            this.setState({ purchasePrice: parseFloat(purchasePrice) })
           }
         />
         <TextField
