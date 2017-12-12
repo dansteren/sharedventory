@@ -12,7 +12,6 @@ import HomeIcon from 'material-ui/svg-icons/action/home';
 import { openDrawer, closeDrawer, openCategoryDialog } from '../actions';
 import { AppState } from '../reducers';
 import { Subheader } from '../components';
-import { sluggify } from '../utils/categories';
 
 interface StateProps {
   open: boolean;
@@ -55,11 +54,11 @@ class SideDrawer extends React.Component<Props, {}> {
             .sort()
             .map(category => (
               <ListItem
-                key={sluggify(category)}
+                key={category}
                 style={{ fontSize: 13 }}
                 primaryText={category}
                 leftIcon={<LabelIcon />}
-                onClick={() => this.props.navigate(sluggify(category))}
+                onClick={() => this.props.navigate(category)}
               />
             ))}
         </List>

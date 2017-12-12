@@ -15,10 +15,10 @@ import TextField from 'material-ui/TextField';
 // App Code
 import { addItem, AddItemProps, closeDialog } from '../actions';
 import { AppState } from '../reducers';
-import { categories, sluggify } from '../utils/categories';
 
 interface StateProps {
   open: boolean;
+  categories: string[];
 }
 
 interface DispatchProps {
@@ -72,6 +72,7 @@ class ItemCreator extends React.Component<Props, State> {
   }
 
   render() {
+    const { categories } = this.props;
     const actions = [
       <FlatButton
         key={1}
@@ -129,16 +130,19 @@ class ItemCreator extends React.Component<Props, State> {
         <SelectField
           floatingLabelText="Category"
           fullWidth
+          maxHeight={200}
           value={this.state.category}
           onChange={(e, key, category) => this.setState({ category })}
         >
-          {categories.map(category => (
-            <MenuItem
-              key={sluggify(category)}
-              value={sluggify(category)}
-              primaryText={category}
-            />
-          ))}
+          {categories
+            .sort()
+            .map(category => (
+              <MenuItem
+                key={category}
+                value={category}
+                primaryText={category}
+              />
+            ))}
         </SelectField>
         <DatePicker
           hintText="Acquisition Date"
@@ -181,7 +185,8 @@ class ItemCreator extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState): StateProps => ({
-  open: state.view.dialogOpen
+  open: state.view.dialogOpen,
+  categories: state.categories
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
