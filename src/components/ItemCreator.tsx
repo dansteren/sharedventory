@@ -5,20 +5,28 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 // Material UI Components
-import DatePicker from 'material-ui/DatePicker';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import TextField from 'material-ui/TextField';
+import NameIcon from 'material-ui/svg-icons/action/subject';
+import CalendarIcon from 'material-ui/svg-icons/action/today';
+import LabelIcon from 'material-ui/svg-icons/action/label';
+import QuantityIcon from 'material-ui/svg-icons/image/filter-9-plus';
+import PriceIcon from 'material-ui/svg-icons/editor/attach-money';
+import LocationIcon from 'material-ui/svg-icons/communication/location-on';
 
 // App Code
 import { addItem, AddItemProps, closeDialog } from '../actions';
 import { AppState } from '../reducers';
-import { categories, sluggify } from '../utils/categories';
+import { months } from '../reducers/items';
+import { FormItem } from '../components';
+import { toTitleCase } from '../utils';
 
 interface StateProps {
   open: boolean;
+  categories: string[];
 }
 
 interface DispatchProps {
@@ -40,7 +48,7 @@ class ItemCreator extends React.Component<Props, State> {
     const category = this.props.match.params.category;
     this.state = {
       name: '',
-      category: category !== 'all' ? category : '',
+      category: category === 'all' ? '' : category,
       visibility: 'PRIVATE',
       quantity: 1
     };
@@ -61,9 +69,10 @@ class ItemCreator extends React.Component<Props, State> {
       name: '',
       category: '',
       visibility: 'PRIVATE',
-      acquisitionDate: undefined,
+      acquisitionMonth: undefined,
+      acquisitionYear: undefined,
       additionalInfo: undefined,
-      estimatedValue: undefined,
+      purchasePrice: undefined,
       loan: undefined,
       picture: undefined,
       quantity: undefined,
@@ -72,6 +81,7 @@ class ItemCreator extends React.Component<Props, State> {
   }
 
   render() {
+    const { categories } = this.props;
     const actions = [
       <FlatButton
         key={1}
@@ -84,7 +94,7 @@ class ItemCreator extends React.Component<Props, State> {
       />,
       <FlatButton
         key={2}
-        label="Submit"
+        label="Add"
         primary
         onClick={() => {
           this.props.addItem(this.state);
@@ -95,78 +105,104 @@ class ItemCreator extends React.Component<Props, State> {
 
     return (
       <Dialog
-        title={this.state.name || 'Add Item'}
+        title="Add Item"
         actions={actions}
         modal
         open={this.props.open}
         onRequestClose={this.props.closeDialog}
+        contentStyle={{ maxWidth: 400 }}
         autoScrollBodyContent
       >
-        <SelectField
-          floatingLabelText="Visibility"
-          fullWidth
-          value={this.state.visibility}
-          onChange={(e, key, visibility) => this.setState({ visibility })}
-        >
-          <MenuItem value="PRIVATE" primaryText="Private" />
-          <MenuItem value="PUBLIC" primaryText="Public" />
-        </SelectField>
-        <TextField
-          floatingLabelText="Quantity"
-          type="number"
-          fullWidth
-          value={this.state.quantity ? this.state.quantity.toString() : ''}
-          onChange={(e, quantity) =>
-            this.setState({ quantity: parseFloat(quantity) })
-          }
-        />
-        <TextField
-          floatingLabelText="Name"
-          fullWidth
-          value={this.state.name}
-          onChange={(e, name) => this.setState({ name })}
-        />
-        <SelectField
-          floatingLabelText="Category"
-          fullWidth
-          value={this.state.category}
-          onChange={(e, key, category) => this.setState({ category })}
-        >
-          {categories.map(category => (
-            <MenuItem
-              key={sluggify(category)}
-              value={sluggify(category)}
-              primaryText={category}
+        <FormItem icon={<NameIcon />}>
+          <TextField
+            floatingLabelText="Name"
+            fullWidth
+            value={this.state.name}
+            onChange={(e, name) => this.setState({ name })}
+          />
+        </FormItem>
+        <FormItem icon={<LabelIcon />}>
+          <SelectField
+            floatingLabelText="Category"
+            fullWidth
+            maxHeight={200}
+            value={this.state.category === '' ? undefined : this.state.category}
+            onChange={(e, key, category) => this.setState({ category })}
+          >
+            {categories
+              .sort()
+              .map(category => (
+                <MenuItem
+                  key={category}
+                  value={category}
+                  primaryText={category}
+                />
+              ))}
+          </SelectField>
+        </FormItem>
+        <FormItem icon={<QuantityIcon />}>
+          <TextField
+            floatingLabelText="Quantity"
+            type="number"
+            fullWidth
+            value={this.state.quantity ? this.state.quantity.toString() : ''}
+            onChange={(e, quantity) =>
+              this.setState({ quantity: parseFloat(quantity) })
+            }
+          />
+        </FormItem>
+        <FormItem icon={<PriceIcon />}>
+          <TextField
+            floatingLabelText="Purchase Price"
+            type="number"
+            fullWidth
+            value={this.state.purchasePrice}
+            onChange={(e, purchasePrice) =>
+              this.setState({ purchasePrice: parseFloat(purchasePrice) })
+            }
+          />
+        </FormItem>
+        <FormItem icon={<CalendarIcon />}>
+          <div style={{ display: 'flex' }}>
+            <SelectField
+              floatingLabelText="Month"
+              fullWidth
+              maxHeight={200}
+              value={this.state.acquisitionMonth}
+              onChange={(e, key, acquisitionMonth) =>
+                this.setState({ acquisitionMonth })
+              }
+            >
+              {months.map(month => (
+                <MenuItem
+                  key={month}
+                  value={month}
+                  primaryText={toTitleCase(month)}
+                />
+              ))}
+            </SelectField>
+            <div style={{ padding: 8 }} />
+            <TextField
+              floatingLabelText="Year"
+              type="number"
+              fullWidth
+              value={this.state.acquisitionYear}
+              onChange={(e, acquisitionYear) =>
+                this.setState({ acquisitionYear: parseFloat(acquisitionYear) })
+              }
             />
-          ))}
-        </SelectField>
-        <DatePicker
-          hintText="Acquisition Date"
-          mode="landscape"
-          value={
-            this.state.acquisitionDate
-              ? new Date(this.state.acquisitionDate)
-              : undefined
-          }
-          onChange={(e, date) =>
-            this.setState({ acquisitionDate: date.getTime() })
-          }
-        />
-        <TextField
-          floatingLabelText="Estimated Value"
-          type="number"
-          fullWidth
-          value={this.state.estimatedValue}
-          onChange={(e, estimatedValue) =>
-            this.setState({ estimatedValue: parseFloat(estimatedValue) })
-          }
-        />
-        <TextField
-          floatingLabelText="Storage Location"
-          fullWidth
-          value={this.state.storageLocation}
-          onChange={(e, storageLocation) => this.setState({ storageLocation })}
-        />
+          </div>
+        </FormItem>
+        <FormItem icon={<LocationIcon />}>
+          <TextField
+            floatingLabelText="Storage Location"
+            fullWidth
+            value={this.state.storageLocation}
+            onChange={(e, storageLocation) =>
+              this.setState({ storageLocation })
+            }
+          />
+        </FormItem>
         <TextField
           floatingLabelText="Additional Info"
           fullWidth
@@ -181,7 +217,8 @@ class ItemCreator extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState): StateProps => ({
-  open: state.view.dialogOpen
+  open: state.view.dialogOpen,
+  categories: state.categories
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
