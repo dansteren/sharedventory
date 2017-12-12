@@ -23,7 +23,6 @@ interface DispatchProps {
 interface State {
   username: string;
   password: string;
-  error: string;
 }
 
 type Props = StateProps & DispatchProps & RouteComponentProps<void>;
@@ -33,12 +32,12 @@ class Login extends React.Component<Props, State> {
     super(props);
     this.state = {
       username: '',
-      password: '',
-      error: ''
+      password: ''
     };
   }
 
   render() {
+    const { username, password } = this.state;
     return (
       <div
         style={{
@@ -67,14 +66,21 @@ class Login extends React.Component<Props, State> {
           <TextField
             floatingLabelText="Email or Username"
             style={{ width: 'auto' }}
+            value={username}
             onChange={(event, value) => this.setState({ username: value })}
           />
           <TextField
             floatingLabelText="Password"
             style={{ width: 'auto', marginBottom: 50 }}
             type="password"
+            value={password}
             errorText={this.props.errorText}
             onChange={(event, value) => this.setState({ password: value })}
+            onKeyUp={event => {
+              if (event.key === 'Enter') {
+                this.props.login(username, password);
+              }
+            }}
           />
           <div
             style={{
@@ -88,9 +94,7 @@ class Login extends React.Component<Props, State> {
             <RaisedButton
               primary
               label="Sign In"
-              onClick={() =>
-                this.props.login(this.state.username, this.state.password)
-              }
+              onClick={() => this.props.login(username, password)}
             />
           </div>
         </Paper>
