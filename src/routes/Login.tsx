@@ -86,11 +86,10 @@ class Login extends React.Component<Props, State> {
             style={{
               display: 'flex',
               flexDirection: 'row',
-              justifyContent: 'space-between',
+              justifyContent: 'flex-end',
               alignItems: 'center'
             }}
           >
-            <a style={{ color: cyan500, fontSize: 14 }}>More Options</a>
             <RaisedButton
               primary
               label="Sign In"
