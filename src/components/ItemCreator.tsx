@@ -101,6 +101,7 @@ class ItemCreator extends React.Component<Props, State> {
         modal
         open={this.props.open}
         onRequestClose={this.props.closeDialog}
+        contentStyle={{ maxWidth: 400 }}
         autoScrollBodyContent
       >
         <SelectField
