@@ -147,7 +147,7 @@ class ItemCreator extends React.Component<Props, State> {
             floatingLabelText="Condition"
             fullWidth
             maxHeight={200}
-            value={this.state.condition ? this.state.condition : undefined}
+            value={this.state.condition}
             onChange={(e, key, condition) => this.setState({ condition })}
           >
             {conditions.map(condition => (
@@ -175,7 +175,11 @@ class ItemCreator extends React.Component<Props, State> {
             floatingLabelText="Purchase Price"
             type="number"
             fullWidth
-            value={this.state.purchasePrice}
+            value={
+              this.state.purchasePrice
+                ? this.state.purchasePrice.toString()
+                : ''
+            }
             onChange={(e, purchasePrice) =>
               this.setState({ purchasePrice: parseFloat(purchasePrice) })
             }
@@ -205,7 +209,11 @@ class ItemCreator extends React.Component<Props, State> {
               floatingLabelText="Year"
               type="number"
               fullWidth
-              value={this.state.acquisitionYear}
+              value={
+                this.state.acquisitionYear
+                  ? this.state.acquisitionYear.toString()
+                  : ''
+              }
               onChange={(e, acquisitionYear) =>
                 this.setState({ acquisitionYear: parseFloat(acquisitionYear) })
               }
@@ -216,7 +224,7 @@ class ItemCreator extends React.Component<Props, State> {
           <TextField
             floatingLabelText="Storage Location"
             fullWidth
-            value={this.state.storageLocation}
+            value={this.state.storageLocation ? this.state.storageLocation : ''}
             onChange={(e, storageLocation) =>
               this.setState({ storageLocation })
             }
