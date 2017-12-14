@@ -60,7 +60,7 @@ class Login extends React.Component<Props, State> {
           }}
         >
           <h1 style={{ fontWeight: 400, fontSize: 16, color: cyan500 }}>
-            Sharedventory
+            Myventory
           </h1>
           <p style={{ fontSize: 24 }}>Sign In</p>
           <TextField

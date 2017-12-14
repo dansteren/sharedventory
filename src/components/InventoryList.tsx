@@ -45,7 +45,7 @@ class InventoryList extends React.Component<Props, {}> {
       <div>
         <AppBar
           onLeftIconButtonTouchTap={this.props.openDrawer}
-          title={category === 'all' ? 'Sharedventory' : category}
+          title={category === 'all' ? 'Myventory' : category}
         />
         <ItemCreator />
         <div
