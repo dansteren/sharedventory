@@ -6,6 +6,23 @@ export type Visibility = 'PUBLIC' | 'PRIVATE';
 export type DateTime = number;
 export type UserId = string;
 
+export const conditions = [
+  'NEW',
+  'LIKE_NEW',
+  'VERY_GOOD',
+  'GOOD',
+  'ACCEPTABLE',
+  'POOR'
+];
+
+export type Condition =
+  | 'NEW'
+  | 'LIKE_NEW'
+  | 'VERY_GOOD'
+  | 'GOOD'
+  | 'ACCEPTABLE'
+  | 'POOR';
+
 export const months = [
   'JANUARY',
   'FEBRUARY',
@@ -56,6 +73,7 @@ export interface Item {
   picture?: string;
   quantity?: number;
   storageLocation?: string;
+  condition?: Condition;
 }
 
 export type ItemsState = Item[];
@@ -77,7 +95,8 @@ const items = (state: ItemsState = [], action: ItemAction): ItemsState => {
         loan: action.data.loan,
         picture: action.data.picture,
         quantity: action.data.quantity,
-        storageLocation: action.data.storageLocation
+        storageLocation: action.data.storageLocation,
+        condition: action.data.condition
       };
       return [...state, newItem];
     default:

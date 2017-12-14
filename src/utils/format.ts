@@ -15,3 +15,13 @@ export function toTitleCase(str: string | undefined) {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
 }
+
+export function fromEnum(str: string | undefined) {
+  if (!str) {
+    return str;
+  }
+  const dashless = str.replace(/_/g, ' ');
+  return dashless.replace(/\w\S*/g, (txt: string) => {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}

@@ -16,13 +16,14 @@ import LabelIcon from 'material-ui/svg-icons/action/label';
 import QuantityIcon from 'material-ui/svg-icons/image/filter-9-plus';
 import PriceIcon from 'material-ui/svg-icons/editor/attach-money';
 import LocationIcon from 'material-ui/svg-icons/communication/location-on';
+import ConditionIcon from 'material-ui/svg-icons/toggle/star';
 
 // App Code
 import { addItem, AddItemProps, closeDialog } from '../actions';
 import { AppState } from '../reducers';
-import { months } from '../reducers/items';
+import { conditions, months } from '../reducers/items';
 import { FormItem } from '../components';
-import { toTitleCase } from '../utils';
+import { toTitleCase, fromEnum } from '../utils';
 
 interface StateProps {
   open: boolean;
@@ -76,7 +77,8 @@ class ItemCreator extends React.Component<Props, State> {
       loan: undefined,
       picture: undefined,
       quantity: undefined,
-      storageLocation: undefined
+      storageLocation: undefined,
+      condition: undefined
     });
   }
 
@@ -138,6 +140,23 @@ class ItemCreator extends React.Component<Props, State> {
                   primaryText={category}
                 />
               ))}
+          </SelectField>
+        </FormItem>
+        <FormItem icon={<ConditionIcon />}>
+          <SelectField
+            floatingLabelText="Condition"
+            fullWidth
+            maxHeight={200}
+            value={this.state.condition ? this.state.condition : undefined}
+            onChange={(e, key, condition) => this.setState({ condition })}
+          >
+            {conditions.map(condition => (
+              <MenuItem
+                key={condition}
+                value={condition}
+                primaryText={fromEnum(condition)}
+              />
+            ))}
           </SelectField>
         </FormItem>
         <FormItem icon={<QuantityIcon />}>

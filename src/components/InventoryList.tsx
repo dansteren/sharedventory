@@ -4,12 +4,17 @@ import { Dispatch } from 'redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
-import { grey200 } from 'material-ui/styles/colors';
+import { grey100 } from 'material-ui/styles/colors';
 
 import { openDrawer } from '../actions';
 import { AppState } from '../reducers';
 import { Item } from '../reducers/items';
-import { InventoryItem, ItemCreator } from '../components';
+import {
+  InventoryListItem,
+  ItemCreator,
+  InventoryListHeader,
+  NoItemsCircle
+} from '../components';
 
 interface StateProps {
   items: Item[];
@@ -34,7 +39,7 @@ class InventoryList extends React.Component<Props, {}> {
         ? allItems
         : allItems.filter(item => item.category === category);
     const items = categoryItems.map(item => (
-      <InventoryItem key={item.id} item={item} />
+      <InventoryListItem key={item.id} item={item} />
     ));
     return (
       <div>
@@ -42,27 +47,34 @@ class InventoryList extends React.Component<Props, {}> {
           onLeftIconButtonTouchTap={this.props.openDrawer}
           title={category === 'all' ? 'Sharedventory' : category}
         />
+        <ItemCreator />
         <div
           style={{
             height: 'calc(100vh - 64px)',
             display: 'flex',
             flexDirection: 'column',
+            justifyContent: items.length > 0 ? 'flex-start' : 'center',
             alignItems: 'center',
-            backgroundColor: grey200,
+            backgroundColor: grey100,
             flexGrow: 1
           }}
         >
-          <ItemCreator />
           <div
             style={{
               display: 'flex',
-              flexDirection: 'row',
-              flexFlow: 'wrap',
-              alignContent: 'center',
-              maxWidth: 800
+              flexDirection: 'column',
+              alignItems: 'center',
+              paddingTop: items.length > 0 ? 24 : 0
             }}
           >
-            {items.length > 0 ? items : <div> No Items </div>}
+            {items.length > 0 ? (
+              <div>
+                <InventoryListHeader />
+                {items}
+              </div>
+            ) : (
+              <NoItemsCircle />
+            )}
           </div>
         </div>
       </div>

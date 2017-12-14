@@ -1,4 +1,11 @@
-import { Item, Loan, Visibility, DateTime, Month } from '../reducers/items';
+import {
+  Item,
+  Loan,
+  Visibility,
+  DateTime,
+  Month,
+  Condition
+} from '../reducers/items';
 
 export interface AddItemProps {
   name: string;
@@ -12,6 +19,7 @@ export interface AddItemProps {
   picture?: string;
   quantity?: number;
   storageLocation?: string;
+  condition?: Condition;
 }
 
 interface AddItemAction {
