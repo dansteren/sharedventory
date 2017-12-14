@@ -76,7 +76,7 @@ class ItemCreator extends React.Component<Props, State> {
       purchasePrice: undefined,
       loan: undefined,
       picture: undefined,
-      quantity: undefined,
+      quantity: 1,
       storageLocation: undefined,
       condition: undefined
     });
