@@ -12,6 +12,8 @@ const boxes = require('../assets/boxes.svg');
 import { login } from '../actions';
 import { AppState } from '../reducers';
 
+const icon = require('../assets/icon.png');
+
 interface StateProps {
   errorText: string;
 }
@@ -59,10 +61,26 @@ class Login extends React.Component<Props, State> {
             padding: 40
           }}
         >
-          <h1 style={{ fontWeight: 400, fontSize: 16, color: cyan500 }}>
-            Myventory
-          </h1>
-          <p style={{ fontSize: 24 }}>Sign In</p>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <img
+              src={icon}
+              className="App-logo"
+              alt="logo"
+              height={24}
+              width={24}
+            />
+            <h1
+              style={{
+                fontWeight: 400,
+                fontSize: 28,
+                color: cyan500,
+                paddingLeft: 8
+              }}
+            >
+              Myventory
+            </h1>
+          </div>
+          <p>Inventory management made simple.</p>
           <TextField
             floatingLabelText="Email or Username"
             style={{ width: 'auto' }}
