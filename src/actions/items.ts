@@ -32,4 +32,14 @@ export const addItem = (item: AddItemProps): AddItemAction => ({
   data: item
 });
 
-export type ItemAction = AddItemAction;
+interface DeleteItemAction {
+  type: 'DELETE_ITEM';
+  id: string;
+}
+
+export const deleteItem = (id: string): DeleteItemAction => ({
+  type: 'DELETE_ITEM',
+  id
+});
+
+export type ItemAction = AddItemAction | DeleteItemAction;

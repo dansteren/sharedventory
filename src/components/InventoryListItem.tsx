@@ -43,7 +43,7 @@ class InventoryListItem extends React.Component<Props, {}> {
           flexGrow: 1,
           fontSize: 13,
           color: grey700,
-          width: 800 - 32,
+          width: 800 - 24,
           borderBottomStyle: 'solid',
           borderBottomWidth: 1,
           borderBottomColor: grey200

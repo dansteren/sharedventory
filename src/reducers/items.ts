@@ -99,6 +99,8 @@ const items = (state: ItemsState = [], action: ItemAction): ItemsState => {
         condition: action.data.condition
       };
       return [...state, newItem];
+    case 'DELETE_ITEM':
+      return state.filter(item => item.id !== action.id);
     default:
       return state;
   }

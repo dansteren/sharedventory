@@ -15,12 +15,12 @@ import CalendarIcon from 'material-ui/svg-icons/action/today';
 import LocationIcon from 'material-ui/svg-icons/communication/location-on';
 import AdditionalInfoIcon from 'material-ui/svg-icons/action/subject';
 import IconButton from 'material-ui/IconButton';
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
-// import DeleteIcon from 'material-ui/svg-icons/action/delete';
+// import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import { grey700, grey200 } from 'material-ui/styles/colors';
 
 // App Code
-import { hideItem } from '../actions';
+import { hideItem, deleteItem } from '../actions';
 import { AppState } from '../reducers';
 import { Item } from '../reducers/items';
 import { CardField } from '../components';
@@ -66,29 +66,35 @@ class ItemViewer extends React.Component<Props, {}> {
               display: 'flex',
               flexDirection: 'column',
               minWidth: 500,
-              maxWidth: 800,
-              padding: 16,
-              paddingTop: 32
+              maxWidth: 768,
+              padding: 16
             }}
           >
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                paddingRight: 16,
+                alignItems: 'center',
                 fontSize: 20,
                 paddingBottom: 16,
                 borderBottom: `1px solid ${grey200}`
               }}
             >
               <div>{item.name ? item.name : '—'}</div>
-              <IconButton
-                tooltip="Edit item"
-                style={{ padding: 0, height: 24, width: 24 }}
-                onClick={() => this.props.editItem(item.id)}
-              >
-                <EditIcon color={grey700} />
-              </IconButton>
+              <div>
+                {/* <IconButton
+                  tooltip="Edit item"
+                  onClick={() => this.props.editItem(item.id)}
+                >
+                  <EditIcon color={grey700} />
+                </IconButton> */}
+                <IconButton
+                  tooltip="Delete item"
+                  onClick={() => this.props.deleteItem(item.id)}
+                >
+                  <DeleteIcon color={grey700} />
+                </IconButton>
+              </div>
             </div>
             <CardField
               icon={<CategoryIcon />}
@@ -149,6 +155,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
   },
   deleteItem(id: string) {
     dispatch(hideItem());
+    dispatch(deleteItem(id));
   },
   editItem(id: string) {
     dispatch(hideItem());
