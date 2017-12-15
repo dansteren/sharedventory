@@ -13,7 +13,8 @@ import {
   InventoryListItem,
   ItemCreator,
   InventoryListHeader,
-  NoItemsCircle
+  NoItemsCircle,
+  ItemViewer
 } from '../components';
 
 interface StateProps {
@@ -77,6 +78,7 @@ class InventoryList extends React.Component<Props, {}> {
             )}
           </div>
         </div>
+        <ItemViewer />
       </div>
     );
   }

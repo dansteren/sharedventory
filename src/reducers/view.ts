@@ -1,10 +1,13 @@
 import { ViewAction } from '../actions';
+import { Item } from '../reducers/items';
 
 export interface ViewState {
   drawerOpen: boolean;
   dialogOpen: boolean;
   categoryDialogOpen: boolean;
   loginError: string;
+  loginTarget?: EventTarget & HTMLDivElement;
+  item?: Item;
 }
 
 const initialState: ViewState = {
@@ -33,6 +36,10 @@ const items = (
       return { ...state, categoryDialogOpen: false };
     case 'SHOW_LOGIN_ERROR':
       return { ...state, loginError: 'Invalid Credentials. Try again.' };
+    case 'VIEW_ITEM':
+      return { ...state, loginTarget: action.target, item: action.item };
+    case 'HIDE_ITEM':
+      return { ...state, item: undefined };
     default:
       return state;
   }

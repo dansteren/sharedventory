@@ -1,5 +1,7 @@
 // Libraries
 import * as React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
 // Material UI Components
 import ItemIcon from 'material-ui/svg-icons/action/assignment';
@@ -12,18 +14,27 @@ import {
 import { fade } from 'material-ui/utils/colorManipulator';
 
 // App Code
+import { viewItem } from '../actions';
+import { AppState } from '../reducers';
 import { Item } from '../reducers/items';
 import { fromEnum } from '../utils';
 
-interface Props {
+interface ComponentProps {
   item: Item;
 }
+
+interface DispatchProps {
+  viewItem: (target: EventTarget & HTMLDivElement, item: Item) => void;
+}
+
+type Props = ComponentProps & DispatchProps;
 
 class InventoryListItem extends React.Component<Props, {}> {
   render() {
     const item = this.props.item;
     return (
       <div
+        onClick={event => this.props.viewItem(event.currentTarget, item)}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -53,4 +64,10 @@ class InventoryListItem extends React.Component<Props, {}> {
   }
 }
 
-export default InventoryListItem;
+const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
+  viewItem(target: EventTarget & HTMLDivElement, item: Item) {
+    dispatch(viewItem(target, item));
+  }
+});
+
+export default connect(null, mapDispatchToProps)(InventoryListItem);

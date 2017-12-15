@@ -1,3 +1,4 @@
+export { default as CardField } from './CardField';
 export { default as CategoryEditor } from './CategoryEditor';
 export { default as CategoryItem } from './CategoryItem';
 export { default as FormItem } from './FormItem';
@@ -6,6 +7,7 @@ export { default as InventoryList } from './InventoryList';
 export { default as InventoryListHeader } from './InventoryListHeader';
 export { default as InventoryListItem } from './InventoryListItem';
 export { default as ItemCreator } from './ItemCreator';
+export { default as ItemViewer } from './ItemViewer';
 export { default as MyComp } from './MyComp';
 export { default as NewCategory } from './NewCategory';
 export { default as NoItemsCircle } from './NoItemsCircle';

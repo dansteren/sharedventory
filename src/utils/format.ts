@@ -1,4 +1,7 @@
-export function toUSCurrency(n: number) {
+export function toUSCurrency(n?: number): string {
+  if (!n) {
+    return '';
+  }
   const USD = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -7,7 +10,7 @@ export function toUSCurrency(n: number) {
   return USD.format(n);
 }
 
-export function toTitleCase(str: string | undefined) {
+export function toTitleCase(str?: string) {
   if (!str) {
     return str;
   }
@@ -16,7 +19,7 @@ export function toTitleCase(str: string | undefined) {
   });
 }
 
-export function fromEnum(str: string | undefined) {
+export function fromEnum(str?: string) {
   if (!str) {
     return str;
   }

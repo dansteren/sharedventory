@@ -1,3 +1,5 @@
+import { Item } from '../reducers/items';
+
 interface OpenDrawerAction {
   type: 'OPEN_DRAWER';
 }
@@ -54,6 +56,29 @@ export const closeCategoryDialog = (): CloseCategoryDialogAction => ({
   type: 'CLOSE_CATEGORY_DIALOG'
 });
 
+interface ViewItemAction {
+  type: 'VIEW_ITEM';
+  target: EventTarget & HTMLDivElement;
+  item: Item;
+}
+
+export const viewItem = (
+  target: EventTarget & HTMLDivElement,
+  item: Item
+): ViewItemAction => ({
+  type: 'VIEW_ITEM',
+  target,
+  item
+});
+
+interface HideItemAction {
+  type: 'HIDE_ITEM';
+}
+
+export const hideItem = (): HideItemAction => ({
+  type: 'HIDE_ITEM'
+});
+
 export type ViewAction =
   | OpenDrawerAction
   | CloseDrawerAction
@@ -61,4 +86,6 @@ export type ViewAction =
   | CloseDialogAction
   | OpenCategoryDialogAction
   | CloseCategoryDialogAction
-  | ShowLoginErrorAction;
+  | ShowLoginErrorAction
+  | ViewItemAction
+  | HideItemAction;
