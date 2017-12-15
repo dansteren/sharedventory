@@ -164,6 +164,7 @@ class ItemCreator extends React.Component<Props, State> {
             floatingLabelText="Quantity"
             type="number"
             fullWidth
+            min={0}
             value={this.state.quantity ? this.state.quantity.toString() : ''}
             onChange={(e, quantity) =>
               this.setState({ quantity: parseFloat(quantity) })
@@ -174,6 +175,7 @@ class ItemCreator extends React.Component<Props, State> {
           <TextField
             floatingLabelText="Purchase Price"
             type="number"
+            min={0}
             fullWidth
             value={
               this.state.purchasePrice
@@ -208,6 +210,7 @@ class ItemCreator extends React.Component<Props, State> {
             <TextField
               floatingLabelText="Year"
               type="number"
+              min={0}
               fullWidth
               value={
                 this.state.acquisitionYear

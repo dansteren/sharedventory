@@ -53,9 +53,11 @@ class InventoryListItem extends React.Component<Props, {}> {
           <ItemIcon color={fade(fullBlack, 0.54)} height={24} width={24} />
         </div>
         <span style={{ paddingLeft: 16, flexGrow: 1, fontWeight: 500 }}>
-          {item.name}
+          {item.name || '—'}
         </span>
-        <span style={{ width: 200, fontWeight: 400 }}>{item.category}</span>
+        <span style={{ width: 200, fontWeight: 400 }}>
+          {item.category || '—'}
+        </span>
         <span style={{ width: 100, fontWeight: 400 }}>
           {fromEnum(item.condition) || '—'}
         </span>
