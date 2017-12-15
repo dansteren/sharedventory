@@ -22,6 +22,8 @@ export interface AddItemProps {
   condition?: Condition;
 }
 
+export type EditItemProps = AddItemProps;
+
 interface AddItemAction {
   type: 'ADD_ITEM';
   data: Partial<Item>;
@@ -30,6 +32,18 @@ interface AddItemAction {
 export const addItem = (item: AddItemProps): AddItemAction => ({
   type: 'ADD_ITEM',
   data: item
+});
+
+interface EditItemAction {
+  type: 'EDIT_ITEM';
+  id: string;
+  item: EditItemProps;
+}
+
+export const editItem = (id: string, item: EditItemProps): EditItemAction => ({
+  type: 'EDIT_ITEM',
+  id,
+  item
 });
 
 interface DeleteItemAction {
@@ -42,4 +56,4 @@ export const deleteItem = (id: string): DeleteItemAction => ({
   id
 });
 
-export type ItemAction = AddItemAction | DeleteItemAction;
+export type ItemAction = AddItemAction | EditItemAction | DeleteItemAction;

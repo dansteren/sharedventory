@@ -15,12 +15,12 @@ import CalendarIcon from 'material-ui/svg-icons/action/today';
 import LocationIcon from 'material-ui/svg-icons/communication/location-on';
 import AdditionalInfoIcon from 'material-ui/svg-icons/action/subject';
 import IconButton from 'material-ui/IconButton';
-// import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import { grey700, grey200 } from 'material-ui/styles/colors';
 
 // App Code
-import { hideItem, deleteItem } from '../actions';
+import { hideItem, deleteItem, showItemEditor, openDialog } from '../actions';
 import { AppState } from '../reducers';
 import { Item } from '../reducers/items';
 import { CardField } from '../components';
@@ -39,7 +39,7 @@ interface StateProps {
 
 interface DispatchProps {
   hideItem: () => void;
-  editItem: (id: string) => void;
+  editItem: (item: Item) => void;
   deleteItem: (id: string) => void;
 }
 
@@ -82,12 +82,12 @@ class ItemViewer extends React.Component<Props, {}> {
             >
               <div>{item.name ? item.name : '—'}</div>
               <div>
-                {/* <IconButton
+                <IconButton
                   tooltip="Edit item"
-                  onClick={() => this.props.editItem(item.id)}
+                  onClick={() => this.props.editItem(item)}
                 >
                   <EditIcon color={grey700} />
-                </IconButton> */}
+                </IconButton>
                 <IconButton
                   tooltip="Delete item"
                   onClick={() => this.props.deleteItem(item.id)}
@@ -157,7 +157,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
     dispatch(hideItem());
     dispatch(deleteItem(id));
   },
-  editItem(id: string) {
+  editItem(item: Item) {
+    dispatch(showItemEditor(item));
+    dispatch(openDialog());
     dispatch(hideItem());
   }
 });

@@ -19,20 +19,28 @@ import LocationIcon from 'material-ui/svg-icons/communication/location-on';
 import ConditionIcon from 'material-ui/svg-icons/toggle/star';
 
 // App Code
-import { addItem, AddItemProps, closeDialog } from '../actions';
+import {
+  addItem,
+  editItem,
+  hideItemEditor,
+  AddItemProps,
+  closeDialog
+} from '../actions';
 import { AppState } from '../reducers';
-import { conditions, months } from '../reducers/items';
+import { conditions, months, Item } from '../reducers/items';
 import { FormItem } from '../components';
 import { toTitleCase, fromEnum } from '../utils';
 
 interface StateProps {
   open: boolean;
   categories: string[];
+  item?: Item;
 }
 
 interface DispatchProps {
   closeDialog: () => void;
   addItem: (itemProps: AddItemProps) => void;
+  editItem: (id: string, itemProps: AddItemProps) => void;
 }
 
 interface Params {
@@ -62,6 +70,9 @@ class ItemCreator extends React.Component<Props, State> {
       this.setState({
         category: nextCategory
       });
+    }
+    if (!this.props.item && nextProps.item) {
+      this.setState(nextProps.item);
     }
   }
 
@@ -99,7 +110,9 @@ class ItemCreator extends React.Component<Props, State> {
         label="Add"
         primary
         onClick={() => {
-          this.props.addItem(this.state);
+          this.props.item
+            ? this.props.editItem(this.props.item.id, this.state)
+            : this.props.addItem(this.state);
           this.clearForm();
         }}
       />
@@ -248,12 +261,18 @@ class ItemCreator extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState): StateProps => ({
   open: state.view.dialogOpen,
-  categories: state.categories
+  categories: state.categories,
+  item: state.view.itemToEdit
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
   addItem(itemProps: AddItemProps) {
     dispatch(addItem(itemProps));
+    dispatch(closeDialog());
+  },
+  editItem(id: string, itemProps: AddItemProps) {
+    dispatch(editItem(id, itemProps));
+    dispatch(hideItemEditor());
     dispatch(closeDialog());
   },
   closeDialog() {

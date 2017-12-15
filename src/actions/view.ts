@@ -79,6 +79,24 @@ export const hideItem = (): HideItemAction => ({
   type: 'HIDE_ITEM'
 });
 
+interface ShowItemEditorAction {
+  type: 'SHOW_ITEM_EDITOR';
+  item: Item;
+}
+
+export const showItemEditor = (item: Item): ShowItemEditorAction => ({
+  type: 'SHOW_ITEM_EDITOR',
+  item
+});
+
+interface HideItemEditorAction {
+  type: 'HIDE_ITEM_EDITOR';
+}
+
+export const hideItemEditor = (): HideItemEditorAction => ({
+  type: 'HIDE_ITEM_EDITOR'
+});
+
 export type ViewAction =
   | OpenDrawerAction
   | CloseDrawerAction
@@ -88,4 +106,6 @@ export type ViewAction =
   | CloseCategoryDialogAction
   | ShowLoginErrorAction
   | ViewItemAction
-  | HideItemAction;
+  | HideItemAction
+  | ShowItemEditorAction
+  | HideItemEditorAction;

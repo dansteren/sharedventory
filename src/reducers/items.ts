@@ -1,4 +1,5 @@
 import * as uuid from 'uuid';
+import { cloneDeep } from 'lodash';
 
 import { ItemAction } from '../actions';
 
@@ -99,6 +100,29 @@ const items = (state: ItemsState = [], action: ItemAction): ItemsState => {
         condition: action.data.condition
       };
       return [...state, newItem];
+    case 'EDIT_ITEM':
+      return state.map(
+        item =>
+          item.id === action.id
+            ? {
+                id: item.id,
+                createdAt: item.createdAt,
+                updatedAt: Date.now(),
+                name: action.item.name || '',
+                category: action.item.category || '',
+                visibility: action.item.visibility || 'PRIVATE',
+                acquisitionMonth: action.item.acquisitionMonth,
+                acquisitionYear: action.item.acquisitionYear,
+                additionalInfo: action.item.additionalInfo,
+                purchasePrice: action.item.purchasePrice,
+                loan: action.item.loan,
+                picture: action.item.picture,
+                quantity: action.item.quantity,
+                storageLocation: action.item.storageLocation,
+                condition: action.item.condition
+              }
+            : cloneDeep(item)
+      );
     case 'DELETE_ITEM':
       return state.filter(item => item.id !== action.id);
     default:

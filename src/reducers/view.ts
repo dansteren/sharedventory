@@ -8,6 +8,7 @@ export interface ViewState {
   loginError: string;
   loginTarget?: EventTarget & HTMLDivElement;
   item?: Item;
+  itemToEdit?: Item;
 }
 
 const initialState: ViewState = {
@@ -40,6 +41,10 @@ const items = (
       return { ...state, loginTarget: action.target, item: action.item };
     case 'HIDE_ITEM':
       return { ...state, item: undefined };
+    case 'SHOW_ITEM_EDITOR':
+      return { ...state, itemToEdit: action.item };
+    case 'HIDE_ITEM_EDITOR':
+      return { ...state, itemToEdit: undefined };
     default:
       return state;
   }
