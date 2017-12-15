@@ -68,7 +68,7 @@ class ItemCreator extends React.Component<Props, State> {
     const nextCategory = nextProps.match.params.category;
     if (nextCategory !== currentCategory) {
       this.setState({
-        category: nextCategory
+        category: nextCategory === 'all' ? '' : nextCategory
       });
     }
     if (!this.props.item && nextProps.item) {
@@ -77,9 +77,10 @@ class ItemCreator extends React.Component<Props, State> {
   }
 
   clearForm() {
+    const category = this.props.match.params.category;
     this.setState({
       name: '',
-      category: '',
+      category: category === 'all' ? '' : category,
       visibility: 'PRIVATE',
       acquisitionMonth: undefined,
       acquisitionYear: undefined,
