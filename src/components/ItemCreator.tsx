@@ -107,7 +107,7 @@ class ItemCreator extends React.Component<Props, State> {
       />,
       <FlatButton
         key={2}
-        label="Add"
+        label={this.props.item ? 'Save' : 'Add'}
         primary
         onClick={() => {
           this.props.item
@@ -120,7 +120,7 @@ class ItemCreator extends React.Component<Props, State> {
 
     return (
       <Dialog
-        title="Add Item"
+        title={this.props.item ? 'Edit Item' : 'Add Item'}
         actions={actions}
         modal
         open={this.props.open}
@@ -276,6 +276,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AppState>): DispatchProps => ({
     dispatch(closeDialog());
   },
   closeDialog() {
+    dispatch(hideItemEditor());
     dispatch(closeDialog());
   }
 });

@@ -24,7 +24,7 @@ import { hideItem, deleteItem, showItemEditor, openDialog } from '../actions';
 import { AppState } from '../reducers';
 import { Item } from '../reducers/items';
 import { CardField } from '../components';
-import { toUSCurrency, fromEnum } from '../utils';
+import { toUSCurrency, fromEnum, toTitleCase } from '../utils';
 //#endregion
 
 //#region (Types)
@@ -121,7 +121,8 @@ class ItemViewer extends React.Component<Props, {}> {
               label="Acquisition Date"
               value={
                 '' +
-                (item.acquisitionMonth || '') +
+                (toTitleCase(item.acquisitionMonth) || '') +
+                ' ' +
                 (item.acquisitionYear || '')
               }
             />

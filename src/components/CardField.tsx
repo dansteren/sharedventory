@@ -28,10 +28,14 @@ class CardField extends React.Component<Props, {}> {
           {icon}
           <div style={{ paddingLeft: 16 }}>
             <span style={{ fontWeight: 500 }}>{label}:</span>{' '}
-            {multiline ? null : value ? value : '—'}
+            {multiline
+              ? null
+              : value && value.toString().trim() !== '' ? value : '—'}
           </div>
         </div>
-        {multiline && <div>{value ? value : '—'}</div>}
+        {multiline && (
+          <div>{value && value.toString().trim() !== '' ? value : '—'}</div>
+        )}
       </div>
     );
   }
